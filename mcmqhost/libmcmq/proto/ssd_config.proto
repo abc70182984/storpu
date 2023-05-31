@@ -1,0 +1,87 @@
+syntax = "proto3";
+
+package mcmq;
+
+enum FlashTechnology {
+    FT_SLC = 0;
+    FT_MLC = 1;
+    FT_TLC = 2;
+}
+
+message FlashConfig {
+    FlashTechnology technology = 1;
+
+    uint64 page_read_latency_lsb = 2;
+    uint64 page_read_latency_csb = 3;
+    uint64 page_read_latency_msb = 4;
+    uint64 page_program_latency_lsb = 5;
+    uint64 page_program_latency_csb = 6;
+    uint64 page_program_latency_msb = 7;
+    uint64 block_erase_latency = 8;
+
+    uint32 nr_dies_per_chip = 9;
+    uint32 nr_planes_per_die = 10;
+    uint32 nr_blocks_per_plane = 11;
+    uint32 nr_pages_per_block = 12;
+    uint32 page_capacity = 13; 
+}
+
+enum CacheMode {
+    CM_NO_CACHE = 0;
+    CM_WRITE_CACHE = 1;
+}
+
+enum BlockSelectionPolicy {
+    BSP_GREEDY = 0;
+}
+
+enum PlaneAllocateScheme {
+    PAS_CWDP = 0;
+    PAS_CWPD = 1;
+    PAS_CDWP = 2;
+    PAS_CDPW = 3;
+    PAS_CPWD = 4;
+    PAS_CPDW = 5;
+    PAS_WCDP = 6;
+    PAS_WCPD = 7;
+    PAS_WDCP = 8;
+    PAS_WDPC = 9;
+    PAS_WPCD = 10;
+    PAS_WPDC = 11;
+    PAS_DCWP = 12;
+    PAS_DCPW = 13;
+    PAS_DWCP = 14;
+    PAS_DWPC = 15;
+    PAS_DPCW = 16;
+    PAS_DPWC = 17;
+    PAS_PCWD = 18;
+    PAS_PCDW = 19;
+    PAS_PWCD = 20;
+    PAS_PWDC = 21;
+    PAS_PDCW = 22;
+    PAS_PDWC = 23;
+}
+
+message Namespace {
+    repeated uint32 channel_ids = 1;
+    repeated uint32 chip_ids = 2;    
+    repeated uint32 die_ids = 3;
+    repeated uint32 plane_ids = 4;
+    PlaneAllocateScheme plane_allocate_scheme = 5;
+}
+
+message SsdConfig {
+    FlashConfig flash_config = 1;
+    uint32 seed = 2;
+    CacheMode cache_mode = 3;
+    uint32 mapping_table_capacity = 4;
+    uint32 data_cache_capacity = 5;
+    uint32 gc_threshold = 6;
+    uint32 gc_hard_threshold = 7;
+    BlockSelectionPolicy block_selection_policy = 8;
+    uint32 channel_count = 9;
+    uint32 nr_chips_per_channel = 10;
+    uint32 channel_transfer_rate = 11;
+    uint32 channel_width = 12;
+    repeated Namespace namespaces = 13;
+}

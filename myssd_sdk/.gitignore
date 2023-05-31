@@ -1,0 +1,14 @@
+.ccls-cache
+compile_commands.json
+*.bak
+
+# Profiling results
+*.prof
+flash_array.png
+
+*.o
+*.d
+*.so
+
+build
+obj

@@ -1,0 +1,12 @@
+[requires]
+spdlog/1.11.0
+cxxopts/[>=2.2.0]
+yaml-cpp/0.6.3
+nlohmann_json/3.9.1
+hdrhistogram-c/0.11.1
+
+[generators]
+cmake
+
+[options]
+spdlog:shared = False
